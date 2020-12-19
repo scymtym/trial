@@ -59,14 +59,19 @@
 (defmethod stage :after ((entity vertex-entity) (area staging-area))
   (stage (vertex-array entity) area))
 
+(defgeneric vertex-buffer-p (thing)
+  (:method ((thing vertex-buffer))
+    t)
+  (:method ((thing t))
+    nil))
+
 (defmethod render ((entity vertex-entity) (program shader-program))
   (setf (uniform program "model_matrix") (model-matrix))
   (setf (uniform program "view_matrix") (view-matrix))
   (setf (uniform program "projection_matrix") (projection-matrix))
   (let ((vao (vertex-array entity)))
     (gl:bind-vertex-array (gl-name vao))
-    ;; KLUDGE: Bad for performance!
-    (if (find 'vertex-buffer (bindings vao) :key #'type-of)
+    (if (find-if (lambda (thing) (vertex-buffer-p thing)) (bindings vao))
         (%gl:draw-elements (vertex-form vao) (size vao) :unsigned-int 0)
         (%gl:draw-arrays (vertex-form vao) 0 (size vao)))
     (gl:bind-vertex-array 0)))
