@@ -52,7 +52,7 @@
 
 (defmethod project-view ((camera 2d-camera))
   (reset-matrix *view-matrix*)
-  (translate (v- (location camera)) *view-matrix*))
+  (translate (v- (the vec3 (location camera))) *view-matrix*))
 
 (defclass sidescroll-camera (2d-camera)
   ((zoom :initarg :zoom :accessor zoom)
