@@ -151,7 +151,7 @@
 (defmethod height ((pass shader-pass))
   (height (framebuffer pass)))
 
-(defmacro define-shader-pass (&environment env name direct-superclasses direct-slots &rest options)
+(defmacro define-shader-pass (name direct-superclasses direct-slots &rest options)
   (setf direct-superclasses (append direct-superclasses (list 'shader-pass)))
   (unless (find :metaclass options :key #'car)
     (push '(:metaclass shader-pass-class) options))
