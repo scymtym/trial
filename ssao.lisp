@@ -9,9 +9,9 @@
 (defun generate-ssao-noise (&optional (samples 16))
   (let ((array (make-array (* samples 3) :element-type 'single-float)))
     (dotimes (i samples array)
-      (setf (aref array (+ 0 (* 3 i))) (1- (* 2 (random 1.0))))
-      (setf (aref array (+ 1 (* 3 i))) (1- (* 2 (random 1.0))))
-      (setf (aref array (+ 2 (* 3 i))) 0.0))))
+      (setf (aref array (+ 0 (* 3 i))) (1- (* 2 (random 1.0f0))))
+      (setf (aref array (+ 1 (* 3 i))) (1- (* 2 (random 1.0f0))))
+      (setf (aref array (+ 2 (* 3 i))) 0.0f0))))
 
 (defun generate-ssao-kernel (&optional (samples 64))
   (let ((array (make-array samples)))
