@@ -60,6 +60,7 @@
   (stage (vertex-array entity) area))
 
 (defgeneric vertex-buffer-p (thing)
+  (:generic-function-class faster-generic-dispatch::inline-cache-fast-generic-function)
   (:method ((thing vertex-buffer))
     t)
   (:method ((thing t))

@@ -883,3 +883,8 @@
 (defpackage #:trial-user
   (:nicknames #:org.shirakumo.fraf.trial.user)
   (:use #:cl+trial))
+
+(in-package #:trial)
+
+(defgeneric render (thing1 thing2)
+  (:generic-function-class faster-generic-dispatch::inline-cache-fast-generic-function))

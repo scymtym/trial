@@ -14,7 +14,8 @@
 
 (defgeneric add-listener (listener event-loop))
 (defgeneric remove-listener (listener event-loop))
-(defgeneric handle (event listener))
+(defgeneric handle (event listener)
+  (:generic-function-class faster-generic-dispatch::inline-cache-fast-generic-function))
 
 (defmethod handle :around ((event event) listener)
   (with-simple-restart (abort "Don't handle ~a in ~a." event listener)
