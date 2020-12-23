@@ -46,7 +46,7 @@
                  (with-error-logging (:trial.render-loop "Error in render thread")
                    (loop while (thread render-loop)
                          do (setf new-time (current-time))
-                            (setf frame-time (- new-time current-time))
+                            (setf frame-time (min .1d0 (- new-time current-time)))
                             (setf current-time new-time)
                             (incf accumulator frame-time)
                             (loop while (<= dt accumulator)
