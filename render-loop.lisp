@@ -15,7 +15,10 @@
   (setf (thread render-loop) T)
   (setf (thread render-loop)
         (with-thread ("render-loop thread")
-          (render-loop render-loop))))
+          (catch 'exit
+            (loop
+              (with-simple-restart (restart-render-loop "Restart render loop")
+                (render-loop render-loop)))))))
 
 (defmethod stop ((render-loop render-loop))
   (let ((thread (thread render-loop)))
@@ -62,4 +65,5 @@
           (v:info :trial.render-loop "Exiting render-loop for ~a." render-loop))
       (exit-render-loop ()
         :report "Exit the render loop entirely."
-        (quit *context*)))))
+        (quit *context*))))
+  (throw 'exit nil))
